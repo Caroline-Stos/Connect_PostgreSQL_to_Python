@@ -75,7 +75,8 @@ if __name__ == "__main__":
         user='postgres',
         password='12345'
     )
-    # ----  CHAMANDO AS FUNÇÕES DA CLASSE FUNCIONARIOS ----
+    
+    # ----  CHAMANDO AS OPERAÇÕES CRUD DA CLASSE FUNCIONARIOS ----
 
     # inserir dados
     dados_para_inserir = [
