@@ -18,7 +18,7 @@ class FuncionarioDB:
             create_table_query = """
                 CREATE TABLE IF NOT EXISTS cad_funcionarios (
                     user_id serial PRIMARY KEY,
-                    nome VARCHAR(50) UNIQUE NOT NULL,
+                    nome VARCHAR(50) NOT NULL,
                     data_contratação TIMESTAMP NOT NULL,
                     idade INTEGER CHECK (idade >= 18),
                     salario INTEGER NOT NULL
@@ -48,9 +48,9 @@ class FuncionarioDB:
         return dados
 
     # Atualizar dados
-    def _atualizar_dados(self, novo_user_id, novo_salario):
-        atualizacao_query = "UPDATE cad_funcionarios SET salario = %s WHERE user_id = %s;"
-        self.cursor.execute(atualizacao_query, (novo_salario, novo_user_id))
+    def _atualizar_dados(self, novo_salario):
+        atualizacao_query = "UPDATE cad_funcionarios SET salario = %s;"
+        self.cursor.execute(atualizacao_query, (novo_salario,))
         self.connection.commit()
 
     # Excluir dados
@@ -63,8 +63,7 @@ class FuncionarioDB:
     def _fechar_conexao(self):
         self.cursor.close()
         self.connection.close()
-        print('Conexão fechada com sucesso.')
-
+        print('Operação concluída com sucesso.')
 
 
 if __name__ == "__main__":
@@ -78,25 +77,26 @@ if __name__ == "__main__":
     )
     # ----  CHAMANDO AS FUNÇÕES DA CLASSE FUNCIONARIOS ----
 
-    # # inserir dados
-    # dados_para_inserir = [
-    #     # (123457, 'Yutty', '2023-10-02', 30, 1850),
-    #     # (123458, 'Lucas', '2023-11-05', 27, 1550),
-    #     (123458, 'Fernando', '2023-11-09', 18, 1500),
-    #     # Adicione mais tuplas de dados conforme necessário
-    # ]
-    # funcionario_db._inserir_dados(dados_para_inserir[0])
-
+    # inserir dados
+    dados_para_inserir = [
+        # (123462, 'Carlos Alberto', '2023-08-02', 45, 1850),
+        (123460, 'Leandro', '2023-05-10', 32, 1550),
+        (123465, 'Fernanda', '2023-06-09', 19, 1500),
+        # Adicione mais tuplas de dados conforme necessário
+    ]
+    for dados in dados_para_inserir:
+        funcionario_db._inserir_dados(dados)
+        
     # # Consultar dados
     # dados_consultados = funcionario_db._consultar_dados()
     # print("Dados na tabela:")
     # for dado in dados_consultados:
     #     print(dado)
 
-    # # Atualizar dados
-    # novo_user_id = 123456
-    # novo_salario = 1850
-    # funcionario_db._atualizar_dados(novo_user_id, novo_salario)
+    # Atualizar dados
+    # user_id = 123460
+    # novo_salario = 1900
+    # funcionario_db._atualizar_dados(novo_salario)
 
     # # Consultar dados após atualização
     # dados_atualizados = funcionario_db._consultar_dados()
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     #     print(dado)
 
     # # Excluir dados
-    # user_id_para_excluir = 123458
+    # user_id_para_excluir = 123462
     # funcionario_db._excluir_dados(user_id_para_excluir)
 
     # # Consultar dados após exclusão
