@@ -28,7 +28,7 @@ class FuncionarioDB:
             self.connection.commit()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            # printa o erro caso o banco de dados já exista
+            # printa o erro caso a tabela já exista
             print(error)
 
     # inserir novos dados
@@ -48,9 +48,9 @@ class FuncionarioDB:
         return dados
 
     # Atualizar dados
-    def _atualizar_dados(self, novo_salario):
-        atualizacao_query = "UPDATE cad_funcionarios SET salario = %s;"
-        self.cursor.execute(atualizacao_query, (novo_salario,))
+    def _atualizar_dados(self, user_id, idade):
+        atualizacao_query = "UPDATE cad_funcionarios SET idade = %s WHERE user_id = %s;"
+        self.cursor.execute(atualizacao_query, (idade, user_id))
         self.connection.commit()
 
     # Excluir dados
@@ -78,15 +78,16 @@ if __name__ == "__main__":
     
     # ----  CHAMANDO AS OPERAÇÕES CRUD DA CLASSE FUNCIONARIOS ----
 
-    # inserir dados
-    dados_para_inserir = [
-        # (123462, 'Carlos Alberto', '2023-08-02', 45, 1850),
-        (123460, 'Leandro', '2023-05-10', 32, 1550),
-        (123465, 'Fernanda', '2023-06-09', 19, 1500),
-        # Adicione mais tuplas de dados conforme necessário
-    ]
-    for dados in dados_para_inserir:
-        funcionario_db._inserir_dados(dados)
+    # # inserir dados
+    # dados_para_inserir = [
+    #     # (123462, 'Carlos Alberto', '2023-08-02', 45, 1850),
+    #     (123460, 'Leandro', '2023-05-10', 32, 1550),
+    #     (123465, 'Fernanda', '2023-06-09', 19, 1500),
+    #     # Adicione mais tuplas de dados conforme necessário
+    # ]
+
+    # for dados in dados_para_inserir:
+    #     funcionario_db._inserir_dados(dados)
         
     # # Consultar dados
     # dados_consultados = funcionario_db._consultar_dados()
@@ -94,10 +95,10 @@ if __name__ == "__main__":
     # for dado in dados_consultados:
     #     print(dado)
 
-    # Atualizar dados
+    # # Atualizar dados
     # user_id = 123460
-    # novo_salario = 1900
-    # funcionario_db._atualizar_dados(novo_salario)
+    # idade = 25
+    # funcionario_db._atualizar_dados(user_id, idade)
 
     # # Consultar dados após atualização
     # dados_atualizados = funcionario_db._consultar_dados()
@@ -106,7 +107,7 @@ if __name__ == "__main__":
     #     print(dado)
 
     # # Excluir dados
-    # user_id_para_excluir = 123462
+    # user_id_para_excluir = 123460
     # funcionario_db._excluir_dados(user_id_para_excluir)
 
     # # Consultar dados após exclusão
