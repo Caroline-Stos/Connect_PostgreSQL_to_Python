@@ -7,7 +7,8 @@ class FuncionarioDB:
             host=host,
             database=database,
             user=user,
-            password=password
+            password=password,
+            client_encoding='utf-8'
         )
         self.cursor = self.connection.cursor()
         self._criar_tabela()
@@ -73,12 +74,13 @@ if __name__ == "__main__":
         host='localhost',
         database='clinicavision',
         user='postgres',
-        password='12345'
+        password='12345',
+        client_encoding='utf-8'
     )
     
     # ----  CHAMANDO AS OPERAÇÕES CRUD DA CLASSE FUNCIONARIOS ----
 
-    # # inserir dados
+    # inserir dados
     # dados_para_inserir = [
     #     # (123462, 'Carlos Alberto', '2023-08-02', 45, 1850),
     #     (123460, 'Leandro', '2023-05-10', 32, 1550),
@@ -110,10 +112,10 @@ if __name__ == "__main__":
     # user_id_para_excluir = 123460
     # funcionario_db._excluir_dados(user_id_para_excluir)
 
-    # # Consultar dados após exclusão
-    # dados_apos_exclusao = funcionario_db._consultar_dados()
-    # print("\n Dados após a exclusão:")
-    # for dado in dados_apos_exclusao:
-    #     print(dado)
+    # Consultar dados após exclusão
+    dados_apos_exclusao = funcionario_db._consultar_dados()
+    print("\n Dados após a exclusão:")
+    for dado in dados_apos_exclusao:
+        print(dado)
 
     funcionario_db._fechar_conexao()
